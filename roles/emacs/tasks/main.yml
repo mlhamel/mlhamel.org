@@ -1,0 +1,4 @@
+- name: install emacs packages
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - emacs24-nox

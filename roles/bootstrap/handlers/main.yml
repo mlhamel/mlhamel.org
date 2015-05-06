@@ -1,0 +1,2 @@
+- name: activate hostname
+  command: hostname --file /etc/hostname

@@ -1,0 +1,14 @@
+- name: install packages for nginx
+  apt: pkg={{ item }} state=installed update_cache=yes force=yes
+  with_items:
+    - nginx
+
+- name: enabling adjusting the names bucket size
+  lineinfile: dest=/etc/nginx/nginx.conf backrefs=yes state=present
+              regexp='^([^#]+)(# )(server_names_hash_bucket_size .*)$'
+              line='\1\3'
+
+- name: adjusting the names bucket size
+  lineinfile: dest=/etc/nginx/nginx.conf backrefs=yes state=present
+              regexp='server_names_hash_bucket_size.*$'
+              line='server_names_hash_bucket_size 128;'

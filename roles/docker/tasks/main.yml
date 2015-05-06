@@ -1,0 +1,16 @@
+- name: install kernel packages for docker
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - grub-legacy-ec2
+    - linux-virtual
+    - lxc
+    - wget
+
+- name: configure grub for docker
+  lineinfile: dest=/boot/grub/menu.lst state=present
+              line='# defoptions=console=hvc0 rootflags=nobarrier'
+              regexp='# defoptions=console=hvc0'
+  notify: regenerate grub menu
+
+- name: install docker
+  shell: curl http://get.docker.io | sh creates=/usr/local/bin/docker

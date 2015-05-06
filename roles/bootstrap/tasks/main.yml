@@ -1,0 +1,5 @@
+- name: set hostname
+  lineinfile: dest=/etc/hostname line={{ inventory_hostname }} regexp=. state=present
+  notify: activate hostname
+  tags:
+    - hostname
