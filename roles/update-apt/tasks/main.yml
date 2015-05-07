@@ -1,0 +1,2 @@
+- name: update packages installed by apt
+  apt: upgrade=dist update_cache=yes

@@ -36,19 +36,16 @@ ifdef config
 endif
 
 .SHELLFLAGS = -e
-.PHONY: setup-server
+.PHONY: setup-server update-server
 .NOTPARALLEL:
 
-default:
-	echo Here are the basic targets: \
-		setup-server; \
-	echo The \"setup-server\" target will install your server;
-.silent: default
-
+default: server
 server: setup-server
+update: update-server
 setup-server: do-setup-server
+update-server: do-update-server
 
-do-setup-server:
+do-setup-server do-update-server:
 	ansible-playbook $(subst do-,,$@).yml $(options) $(extra-options)
 
 # Version Bump using bumpversion

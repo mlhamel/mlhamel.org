@@ -14,3 +14,6 @@
 
 - name: install docker
   shell: curl http://get.docker.io | sh creates=/usr/local/bin/docker
+
+- name: install docker-py package
+  pip: name=docker-py version=1.1.0

@@ -2,8 +2,4 @@
   remote_user: root
   gather_facts: false
   roles:
-    - bootstrap
-    - nginx
-    - emacs
-    - docker
-    - mlhamel.org
+    - update-apt

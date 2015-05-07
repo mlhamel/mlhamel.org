@@ -1,0 +1,11 @@
+- name: Deploy container
+  docker:
+    image=mlhamel/mlhamel.org
+    insecure_registry=yes
+    username={{ registry_user }}
+    password={{ registry_password }}
+    email={{ registry_email }}
+    pull=always
+    name=mlhamel.org
+    ports=8000:8000
+    state=started

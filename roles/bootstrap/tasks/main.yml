@@ -3,3 +3,6 @@
   notify: activate hostname
   tags:
     - hostname
+
+- name: install pip
+  easy_install: name=pip
