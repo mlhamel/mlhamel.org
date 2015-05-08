@@ -42,10 +42,12 @@ endif
 default: server
 server: setup-server
 update: update-server
+reboot: reboot-server
 setup-server: do-setup-server
 update-server: do-update-server
+reboot-server: do-reboot-server
 
-do-setup-server do-update-server:
+do-setup-server do-update-server do-reboot-server:
 	ansible-playbook $(subst do-,,$@).yml $(options) $(extra-options)
 
 # Version Bump using bumpversion

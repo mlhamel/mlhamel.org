@@ -1,3 +1,8 @@
+- name: Kill existing running instance
+  docker:
+    image=mlhamel/mlhamel.org
+    state=killed
+
 - name: Deploy container
   docker:
     image=mlhamel/mlhamel.org
@@ -9,3 +14,12 @@
     name=mlhamel.org
     ports=8000:8000
     state=started
+
+- name: creating nginx config
+  template: src=nginx/mlhamel.org.conf dest=/etc/nginx/sites-available/mlhamel.org.conf
+  notify: restart nginx
+
+- name: enabling nginx config
+  file: src=/etc/nginx/sites-available/mlhamel.org.conf
+        dest=/etc/nginx/sites-enabled/mlhamel.org.conf state=link
+  notify: restart nginx
