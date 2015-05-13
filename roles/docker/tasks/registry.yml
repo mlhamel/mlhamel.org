@@ -1,11 +1,31 @@
-- name: Deploy container
+- name: Kill existing running instance
   docker:
     image=registry:2.0
+    state=killed
+
+- name: Deploy container
+  docker:
+    image=registry:0.9.1
     insecure_registry=yes
     pull=always
     name=registry
     ports=5000:5000
     state=started
+
+- name: Creating nginx httpasswd folder
+  action: file path=/etc/nginx/htpasswd/ state=directory
+
+- name: Copying mlhamel httpasswd file
+  action: template src=nginx/docker.mlhamel.org.htpasswd
+                   dest=/etc/nginx/htpasswd/docker.mlhamel.org.htpasswd
+
+- name: Copying ssl certificate
+  action: template src=ssl/certs/docker.mlhamel.org.crt
+                   dest=/etc/ssl/certs/docker.mlhamel.org
+
+- name: Copying ssl key
+  action: template src=ssl/private/docker.mlhamel.org.key
+                   dest=/etc/ssl/private/docker.mlhamel.org
 
 - name: creating nginx config
   template: src=nginx/docker.mlhamel.org.conf dest=/etc/nginx/sites-available/docker.mlhamel.org.conf

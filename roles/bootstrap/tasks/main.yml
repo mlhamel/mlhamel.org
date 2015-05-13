@@ -6,3 +6,8 @@
 
 - name: install pip
   easy_install: name=pip
+
+- name: install essentials stuff
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - htop
