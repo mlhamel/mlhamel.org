@@ -8,8 +8,10 @@ to use, just run the following commands:
     $ pip install -r requirements.txt
     $ make server
 
-Don't forget to install the ssl certificate on your machine:
+SSL
+---
 
-    $ sudo mkdir /usr/local/share/ca-certificates/docker.mlhamel.org-cert
-    $ sudo cp roles/docker/templates/ssl/certs/docker.mlhamel.org.crt /usr/local/share/ca-certificates/docker.mlhamel.org-cert
-    $ sudo update-ca-certificates
+With StartSSL you need to combine your ssl certificate with their pem key like that:
+
+    $ wget http://www.startssl.com/certs/sub.class1.server.ca.pem
+    $ cat roles/docker/templates/ssl/certs/docker.mlhamel.org.crt sub.class1.server.ca.pem  > roles/docker/templates/ssl/certs/docker.mlhamel.org.crt
