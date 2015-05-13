@@ -1,0 +1,17 @@
+- name: Deploy container
+  docker:
+    image=registry:2.0
+    insecure_registry=yes
+    pull=always
+    name=registry
+    ports=5000:5000
+    state=started
+
+- name: creating nginx config
+  template: src=nginx/docker.mlhamel.org.conf dest=/etc/nginx/sites-available/docker.mlhamel.org.conf
+  notify: restart nginx
+
+- name: enabling nginx config
+  file: src=/etc/nginx/sites-available/docker.mlhamel.org.conf
+        dest=/etc/nginx/sites-enabled/docker.mlhamel.org.conf state=link
+  notify: restart nginx
