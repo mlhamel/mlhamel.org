@@ -43,11 +43,15 @@ default: server
 server: setup-server
 update: update-server
 reboot: reboot-server
+deploy: deploy-web
+docker: setup-docker
 setup-server: do-setup-server
+setup-docker: do-setup-docker
 update-server: do-update-server
 reboot-server: do-reboot-server
+deploy-web: do-deploy-web
 
-do-setup-server do-update-server do-reboot-server:
+do-setup-server do-update-server do-reboot-server do-deploy-web do-setup-docker:
 	ansible-playbook $(subst do-,,$@).yml $(options) $(extra-options)
 
 # Version Bump using bumpversion

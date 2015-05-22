@@ -41,7 +41,7 @@
 - name: Install Docker
   sudo: True
   apt: pkg=lxc-docker state=present
-  notify: "Start Docker"
+  notify: restart Docker
 
 - name: install docker-py package
   pip: name=docker-py version=1.1.0

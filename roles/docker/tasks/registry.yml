@@ -1,16 +1,28 @@
+- name: Creating registry directory
+  file: path=/opt/registry state=directory
+
+- name: Creating data directory
+  file: path=/opt/data state=directory
+
 - name: Kill existing running instance
   docker:
-    image=registry:2.0
+    image=registry2
     state=killed
+
+- name: Get the image
+  shell: docker pull -a mlhamel/registry2
 
 - name: Deploy container
   docker:
-    image=registry:0.9.1
-    insecure_registry=yes
-    pull=always
-    name=registry
-    ports=5000:5000
-    state=started
+    image: mlhamel/registry2
+    pull: always
+    name: registry2
+    ports: 5000:5000
+    state: started
+    volumes:
+    - /opt/registry:/tmp/registry-dev
+    - /opt/data:/data
+    - /opt/ssl:/opt/ssl
 
 - name: Creating nginx httpasswd folder
   action: file path=/etc/nginx/htpasswd/ state=directory
@@ -27,11 +39,11 @@
   action: template src=ssl/private/docker.mlhamel.org.key
                    dest=/etc/ssl/private/docker.mlhamel.org
 
-- name: creating nginx config
+- name: Creating nginx config
   template: src=nginx/docker.mlhamel.org.conf dest=/etc/nginx/sites-available/docker.mlhamel.org.conf
   notify: restart nginx
 
-- name: enabling nginx config
+- name: Enabling nginx config
   file: src=/etc/nginx/sites-available/docker.mlhamel.org.conf
         dest=/etc/nginx/sites-enabled/docker.mlhamel.org.conf state=link
   notify: restart nginx

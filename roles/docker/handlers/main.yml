@@ -1,2 +1,8 @@
 - name: regenerate grub menu
   command: update-grub-legacy-ec2
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: restart docker
+  service: name=docker state=restarted

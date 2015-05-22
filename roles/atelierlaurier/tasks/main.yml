@@ -1,0 +1,24 @@
+- name: Kill existing running instance
+  docker:
+    image=atelierlaurier
+    state=killed
+
+- name: Get the image
+  shell: docker pull -a mlhamel/atelierlaurier
+
+- name: Deploy container
+  docker:
+    image: mlhamel/atelierlaurier:latest
+    insecure_registry: yes
+    name: atelierlaurier
+    ports: 8000:8000
+    state: started
+
+- name: creating nginx config
+  template: src=nginx/atelierlaurier.conf dest=/etc/nginx/sites-available/atelierlaurier.conf
+  notify: restart nginx
+
+- name: enabling nginx config
+  file: src=/etc/nginx/sites-available/atelierlaurier.conf
+        dest=/etc/nginx/sites-enabled/atelierlaurier.conf state=link
+  notify: restart nginx

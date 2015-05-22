@@ -1,0 +1,20 @@
+- name: Creating ssl directory for the registry
+  file: path=/opt/ssl state=directory
+
+- name: Creating certificate directory for the registry
+  file: path=/opt/ssl/certs state=directory
+
+- name: Creating certificate directory
+  file: path=/etc/docker/certs.d/docker.mlhamel.org/ state=directory
+
+- name: Copying ssl certificate for the registry
+  action: template src=ssl/certs/docker.mlhamel.org.crt
+                   dest=/opt/ssl/certs/domain.crt
+
+- name: Copying ssl key for the registry
+  action: template src=ssl/private/docker.mlhamel.org.key
+                   dest=/opt/ssl/certs/domain.key
+
+- name: Copying ssl key
+  action: template src=ssl/certs/docker.mlhamel.org.crt
+                   dest=/etc/docker/certs.d/docker.mlhamel.org/ca.crt

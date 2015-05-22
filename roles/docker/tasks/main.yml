@@ -1,2 +1,2 @@
 - include: dependancies.yml
-- include: registry.yml
+- include: config.yml
