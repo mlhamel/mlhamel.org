@@ -11,7 +11,7 @@
     image: mlhamel/atelierlaurier:latest
     insecure_registry: yes
     name: atelierlaurier
-    ports: 8000:8000
+    ports: 6543:6543
     state: started
 
 - name: creating nginx config
