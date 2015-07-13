@@ -41,17 +41,21 @@ endif
 
 default: server
 server: setup-server
+bootstrap: setup-bootstrap
+postgresql: setup-postgresql
 update: update-server
 reboot: reboot-server
 deploy: deploy-web
 docker: setup-docker
 setup-server: do-setup-server
+setup-bootstrap: do-setup-bootstrap
+setup-postgresql: do-setup-postgresql
 setup-docker: do-setup-docker
 update-server: do-update-server
 reboot-server: do-reboot-server
 deploy-web: do-deploy-web
 
-do-setup-server do-update-server do-reboot-server do-deploy-web do-setup-docker:
+do-setup-server do-setup-bootstrap do-setup-postgresql do-update-server do-reboot-server do-deploy-web do-setup-docker:
 	ansible-playbook $(subst do-,,$@).yml $(options) $(extra-options)
 
 # Version Bump using bumpversion

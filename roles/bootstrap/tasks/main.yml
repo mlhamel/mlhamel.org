@@ -11,3 +11,9 @@
   apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
     - htop
+
+- name: Create main locale
+  locale_gen: name=en_CA.UTF-8 state=present
+
+- name: Create fr locale
+  locale_gen: name=fr_CA.UTF-8 state=present

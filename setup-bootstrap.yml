@@ -3,7 +3,3 @@
   gather_facts: false
   roles:
     - bootstrap
-    - nginx
-    - emacs
-    - docker
-    - postgresql
