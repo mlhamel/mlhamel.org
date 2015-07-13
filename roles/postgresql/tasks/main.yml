@@ -1,0 +1,19 @@
+- name: Kill existing running instance
+  docker:
+    image=postgresql
+    state=killed
+
+- name: Get the image
+  shell: docker pull -a mlhamel/postgresql
+
+- name: Creating data directory for postgresql
+  file: path=/opt/postgresql-data state=directory
+
+- name: Deploy container
+  docker:
+    image: mlhamel/postgresql:latest
+    insecure_registry: yes
+    name: postgresql
+    state: started
+    volumes:
+    - /opt/postgresql-data:/var/lib/postgresql/data
