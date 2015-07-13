@@ -1,0 +1,26 @@
+- name: Kill existing running instance
+  docker:
+    image=agendadulibre
+    state=killed
+
+- name: Get the image
+  shell: docker pull -a mlhamel/agendadulibre
+
+- name: Deploy container
+  docker:
+    image: mlhamel/agendadulibre:latest
+    insecure_registry: yes
+    name: agendadulibre
+    ports: 8001:8000
+    links:
+      - "postgresql:postgresql"
+    state: started
+
+- name: Creating nginx config
+  template: src=nginx/agendadulibre.conf dest=/etc/nginx/sites-available/agendadulibre.conf
+  notify: restart nginx
+
+- name: Enabling nginx config
+  file: src=/etc/nginx/sites-available/agendadulibre.conf
+        dest=/etc/nginx/sites-enabled/agendadulibre.conf state=link
+  notify: restart nginx
