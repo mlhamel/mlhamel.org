@@ -1,6 +1,6 @@
 - name: Kill existing running instance
   docker:
-    image=mlhamel.org
+    image=mlhamel/mlhamel.org
     state=killed
 
 - name: Get the image
