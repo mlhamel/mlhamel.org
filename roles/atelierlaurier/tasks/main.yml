@@ -1,6 +1,6 @@
 - name: Kill existing running instance
   docker:
-    image=atelierlaurier
+    image=mlhamel/atelierlaurier
     state=killed
 
 - name: Get the image
