@@ -13,7 +13,7 @@ install_requires = [
 
 setup(
     name="mlhamel.org",
-    version="0.2.1",
+    version="0.3.0",
     description="mlhamel.org deployment tools",
     long_description=README + "\n\n",
     author="Mathieu Leduc-Hamel",
