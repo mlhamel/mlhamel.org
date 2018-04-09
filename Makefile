@@ -35,6 +35,10 @@ ifdef config
 	options += -e config=$(config)
 endif
 
+ifdef askpass
+	options += --ask-pass
+endif
+
 .SHELLFLAGS = -e
 .PHONY: setup-server update-server
 .NOTPARALLEL:
